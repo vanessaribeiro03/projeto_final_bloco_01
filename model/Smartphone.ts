@@ -2,7 +2,7 @@ import { ProdutoEletronico } from "./ProdutoEletronico";
 
 export class Smartphone extends ProdutoEletronico {
   private _modelo: string;
-  private _tamanhoTela: string;
+  private _tamanhoTela: number;
   private _cor: string;
 
   constructor(
@@ -16,7 +16,7 @@ export class Smartphone extends ProdutoEletronico {
     sistemaOperacional: string,
     descricao: string,
     modelo: string,
-    tamanhoTela: string,
+    tamanhoTela: number,
     cor: string
   ) {
     super(
@@ -39,7 +39,7 @@ export class Smartphone extends ProdutoEletronico {
     return this._modelo;
   }
 
-  public get tamanhoTela(): string {
+  public get tamanhoTela(): number {
     return this._tamanhoTela;
   }
 
@@ -51,7 +51,7 @@ export class Smartphone extends ProdutoEletronico {
     this._modelo = value;
   }
 
-  public set tamanhoTela(value: string) {
+  public set tamanhoTela(value: number) {
     this._tamanhoTela = value;
   }
 
