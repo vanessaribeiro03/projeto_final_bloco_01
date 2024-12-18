@@ -14,7 +14,9 @@ export function main() {
     processador,
     modeloPlacaVideo,
     modelo,
-    cor: string;
+    cor,
+    resposta: string;
+
   const tipoProduto = ["Notebook", "Smartphone"];
 
   const produtoEletronico = new ProdutoEletronicoController();
@@ -34,7 +36,7 @@ export function main() {
       "NVIDIA GeForce MX450"
     )
   );
-  
+
   produtoEletronico.cadastrar(
     new Notebook(
       produtoEletronico.gerarNumero(),
@@ -50,7 +52,7 @@ export function main() {
       "Gráficos integrados Apple"
     )
   );
-  
+
   produtoEletronico.cadastrar(
     new Smartphone(
       produtoEletronico.gerarNumero(),
@@ -67,7 +69,7 @@ export function main() {
       "Preto"
     )
   );
-  
+
   produtoEletronico.cadastrar(
     new Smartphone(
       produtoEletronico.gerarNumero(),
@@ -84,7 +86,6 @@ export function main() {
       "Roxo Escuro"
     )
   );
-  
 
   while (true) {
     console.log("\n------------------------------------------");
@@ -93,9 +94,10 @@ export function main() {
     console.log("                                           ");
     console.log("      1 - Listar todos os Produtos         ");
     console.log("      2 - Listar Produto pelo Id           ");
-    console.log("      3 - Cadastrar Produto                ");
-    console.log("      4 - Atualizar Produto                ");
-    console.log("      5 - Deletar Produto                  ");
+    console.log("      3 - Listar Produto por tipo          ");
+    console.log("      4 - Cadastrar Produto                ");
+    console.log("      5 - Atualizar Produto                ");
+    console.log("      6 - Deletar Produto                  ");
     console.log("      0 - Sair                             ");
     console.log("                                           ");
     console.log("-------------------------------------------");
@@ -126,6 +128,17 @@ export function main() {
         break;
 
       case 3:
+        console.log("\n\nConsultar produtos por tipo.\n\n");
+
+        console.log("\nEscolha o tipo do produto");
+        console.log("1 - Notebook");
+        console.log("2 - Smartphone");
+        tipo = readlinesync.questionInt("\nDigite o tipo: ");
+
+        produtoEletronico.procurarPorTipo(tipo);
+        break;
+
+      case 4:
         console.log("\n\nCadastrar Produto.\n\n");
 
         console.log("Digite o nome: ");
@@ -212,7 +225,7 @@ export function main() {
 
         break;
 
-      case 4:
+      case 5:
         console.log("\n\nAtualizar dados do Produto.\n\n");
 
         console.log("Digite o id do produto: ");
@@ -301,18 +314,33 @@ export function main() {
             default:
               break;
           }
-        } else{
+        } else {
           console.log(`\nProduto de id ${id} não encontrado para atualizar.`);
         }
         break;
 
-      case 5:
+      case 6:
         console.log("\n\n Deletar um Produto.\n\n");
 
         console.log("Digite o id do produto: ");
         id = readlinesync.questionInt("");
 
-        produtoEletronico.deletar(id);
+        const produtoParaDeletar = produtoEletronico.encontrarProduto(id);
+        if (produtoParaDeletar === null) {
+          console.log(`\nProduto de id ${id} não encontrado.`);
+          break;
+        }
+
+        produtoEletronico.procurarPorId(id);
+
+        console.log("\nTem certeza que deseja apagar o produto? s/n");
+        resposta = readlinesync.question("").toLowerCase();
+
+        if (resposta === "s") {
+          produtoEletronico.deletar(id);
+        } else {
+          console.log("\nOperação cancelada.");
+        }
 
         break;
 

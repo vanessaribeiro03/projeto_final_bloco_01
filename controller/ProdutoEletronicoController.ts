@@ -4,6 +4,7 @@ import { ProdutoEletronicoRepository } from "../repository/ProdutoEletronicoRepo
 export class ProdutoEletronicoController
   implements ProdutoEletronicoRepository
 {
+  
   private listaProdutos = new Array<ProdutoEletronico>();
 
   public numero: number = 0;
@@ -14,6 +15,16 @@ export class ProdutoEletronicoController
     }
     this.listaProdutos.forEach((produto) => produto.visualizar());
   }
+
+  procurarPorTipo(tipo: number): void {
+    let tipoEncontrado = this.listaProdutos.filter(produto => produto.tipo === tipo);
+
+    if(tipoEncontrado.length > 0){
+        tipoEncontrado.forEach(produto => produto.visualizar())
+    }else{
+        console.log('Nenhum produto do tipo informado foi encontrado.');
+    }
+}
 
   procurarPorId(id: number): void {
     const produtoEncontrado = this.encontrarProduto(id);

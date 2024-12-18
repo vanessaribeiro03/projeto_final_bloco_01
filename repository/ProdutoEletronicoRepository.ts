@@ -6,4 +6,5 @@ export interface ProdutoEletronicoRepository{
     cadastrar(produto: ProdutoEletronico): void;
     atualizar(produto: ProdutoEletronico): void;
     deletar(id: number): void;
+    procurarPorTipo(tipo: number): void;
 }
